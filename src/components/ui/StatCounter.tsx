@@ -3,13 +3,10 @@ import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 function useCountUp(target: number, duration = 1200, active = false) {
   const reduced = useReducedMotion()
-  const [value, setValue] = useState(reduced || !active ? target : 0)
+  const [value, setValue] = useState(0)
 
   useEffect(() => {
-    if (!active || reduced) {
-      setValue(target)
-      return
-    }
+    if (!active || reduced) return
     let current = 0
     const step = target / (duration / 16)
     const timer = setInterval(() => {
@@ -24,6 +21,7 @@ function useCountUp(target: number, duration = 1200, active = false) {
     return () => clearInterval(timer)
   }, [active, target, duration, reduced])
 
+  if (!active || reduced) return target
   return value
 }
 
