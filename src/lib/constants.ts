@@ -31,7 +31,7 @@ export const NAV_LINKS = [
 // ─── Stats (CountUp in Über-uns-Sektion) ─────────────────────────────────────
 export const STATS = [
   { value: 100, suffix: '+', label: 'Aktive Mitglieder' },
-  { value: 2025 - 1921, suffix: '', label: 'Jahre Vereinsgeschichte' },
+  { value: new Date().getFullYear() - 1921, suffix: '', label: 'Jahre Vereinsgeschichte' },
   { value: 6,   suffix: '',  label: 'Sportabteilungen' },
 ]
 
@@ -138,7 +138,7 @@ export const TEAMS: Team[] = [
     name: 'Herren I',
     description: 'Unsere erste Mannschaft in der Kreisliga A Marburg — das Aushängeschild des Vereins.',
     liga: 'Kreisliga A Marburg',
-    trainer: 'N.N.',
+    trainer: 'Dennis Schneider',
     iconType: 'soccer',
   },
   {
@@ -194,11 +194,11 @@ export const CONTACT = {
 
 // ─── Impressum ────────────────────────────────────────────────────────────────
 export const IMPRESSUM = {
-  verantwortlich: 'N.N. (1. Vorsitzender)',
+  verantwortlich: 'Klaus Größl (1. Vorsitzender)',
   verein: 'SV Rot-Weiß Niederklein 1921 e.V.',
   adresse: 'Sportplatz Niederklein, 35260 Stadtallendorf-Niederklein',
   email: 'info@sv-niederklein.de',
-  registernummer: 'VR XXXX beim Amtsgericht Marburg',
+  registernummer: 'VR 3041 beim Amtsgericht Marburg',
   ustIdNr: 'Nicht vorhanden (gemeinnütziger Verein)',
 }
 
