@@ -1,6 +1,9 @@
 services:
   sv-niederklein-website:
-    build: .
+    build:
+      context: .
+      args:
+        VITE_FUSSBALL_API_TOKEN: ${VITE_FUSSBALL_API_TOKEN:-}
     container_name: sv-niederklein-website
     restart: unless-stopped
     ports:

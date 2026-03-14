@@ -9,6 +9,9 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
+# Token wird zur Build-Zeit injiziert und von Vite ins JS-Bundle eingebettet
+ARG VITE_FUSSBALL_API_TOKEN
+ENV VITE_FUSSBALL_API_TOKEN=$VITE_FUSSBALL_API_TOKEN
 RUN npx vite build
 
 # ─── Stage 2: Serve ───────────────────────────────────────────────────────────
