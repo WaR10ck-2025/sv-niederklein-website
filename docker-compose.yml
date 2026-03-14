@@ -1,0 +1,13 @@
+services:
+  sv-niederklein-website:
+    build: .
+    container_name: sv-niederklein-website
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    networks:
+      - openclaw-net
+
+networks:
+  openclaw-net:
+    external: true

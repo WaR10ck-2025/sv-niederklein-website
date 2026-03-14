@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Vereinsfarben ─────────────────────────────────────────────── */
+  --color-primary:        #C8102E;   /* Vereinsrot */
+  --color-primary-hover:  #9B0B22;   /* Dunkelrot Hover */
+  --color-primary-dim:    #C8102E66; /* Semi-transparent (Schatten/Glow) */
+  --color-primary-ghost:  #C8102E14; /* Ultra-transparent (Card-BG) */
+  --color-primary-light:  #FF4D6D;   /* Aufgehelltes Rot (für dunkle BGs) */
+
+  /* ── Basis ─────────────────────────────────────────────────────── */
+  --color-dark:           #0D0D0D;   /* Hero / dunkle Sections */
+  --color-dark-surface:   #161616;   /* Dunkle Card-Hintergründe */
+  --color-white:          #FFFFFF;
+  --color-surface:        #F4F4F4;   /* Helle Sections */
+  --color-surface-card:   #FFFFFF;   /* Card-Hintergrund */
+  --color-border:         #E5E7EB;
+  --color-border-dark:    #2A2A2A;   /* Border auf dunklem BG */
+
+  /* ── Text ─────────────────────────────────────────────────────── */
+  --color-text-dark:      #111827;   /* Haupttext auf hell */
+  --color-text-muted:     #6B7280;   /* Sekundärtext */
+  --color-text-light:     #F9FAFB;   /* Text auf dunkel */
+  --color-text-light-dim: #9CA3AF;   /* Gedämpfter Text auf dunkel */
+
+  /* ── Typografie ─────────────────────────────────────────────────── */
+  --font-display: 'Oswald', sans-serif;   /* Headlines, Labels, NavBar */
+  --font-body:    'Inter', sans-serif;    /* Fließtext, Formulare */
+}
+
+/* ── Reset & Base ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-white);
+  color: var(--color-text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-width: 320px;
+}
+
+/* ── Accessibility ─────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 0.5rem 1rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* ── Scroll Reveal ─────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Hero Diagonal Clip ─────────────────────────────────────────────── */
+.hero-clip {
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+}
+
+/* ── Noise Texture (SVG filter) ─────────────────────────────────────── */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Animations ─────────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-right {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes count-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.03); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ── Red Accent Underline (NavBar Links) ────────────────────────────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transition: width 250ms ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ── Mobile responsive ──────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .hidden-mobile { display: none !important; }
+  .show-mobile   { display: flex !important; align-items: center; justify-content: center; }
+}
+
+/* ── Reduced Motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
+}
