@@ -4,12 +4,35 @@ services:
       context: .
       args:
         VITE_FUSSBALL_API_TOKEN: ${VITE_FUSSBALL_API_TOKEN:-}
+        VITE_WEB3FORMS_KEY: ${VITE_WEB3FORMS_KEY:-}
     container_name: sv-niederklein-website
     restart: unless-stopped
     ports:
       - "3001:80"
     networks:
       - openclaw-net
+
+  tailscale:
+    image: ghcr.io/tailscale/tailscale:stable
+    profiles: ["remote-access"]
+    container_name: ${TS_HOSTNAME:-sv-niederklein-website}-tailscale
+    hostname: ${TS_HOSTNAME:-sv-niederklein-website}
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY:-}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    restart: unless-stopped
+    networks:
+      - openclaw-net
+
+volumes:
+  tailscale-state:
 
 networks:
   openclaw-net:
