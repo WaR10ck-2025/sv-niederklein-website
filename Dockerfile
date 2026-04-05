@@ -12,6 +12,8 @@ COPY . .
 # Token wird zur Build-Zeit injiziert und von Vite ins JS-Bundle eingebettet
 ARG VITE_FUSSBALL_API_TOKEN
 ENV VITE_FUSSBALL_API_TOKEN=$VITE_FUSSBALL_API_TOKEN
+ARG VITE_WEB3FORMS_KEY
+ENV VITE_WEB3FORMS_KEY=$VITE_WEB3FORMS_KEY
 RUN npx vite build
 
 # ─── Stage 2: Serve ───────────────────────────────────────────────────────────
